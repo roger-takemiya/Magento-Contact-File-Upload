@@ -1,0 +1,46 @@
+
+<?php
+
+$objectManagerCms = \Magento\Framework\App\ObjectManager::getInstance();
+$cmsPage = $objectManagerCms->get('\Magento\Cms\Model\Page');
+
+if( $cmsPage->getIdentifier() == 'orcamento' ){
+
+?>
+
+<div class="field attach required">
+
+<p style="font-size: 15px;">
+    <b>Arquivo de Anexo</b>
+</p>
+<p id="file_error" class="message-error error message" style="display:none;">
+    Arquivo muito grande
+</p>
+<p class="file">
+    Arquivo deve ser menor que 2MB e do tipo .pdf ou .docx
+</p>
+<input id="file-btn" accept=".pdf, .png, .jpg, .gif, .docx, .jpeg/*" name="document" type="file" value="">
+
+<script type="text/javascript" xml="space">
+require(['jquery'], function ($) {
+    jQuery(document).ready(function($){
+        var uploadField = document.getElementById("file-btn");
+        uploadField.onchange = function() {
+
+       
+            if(this.files[0].size > 2000000){
+               $('#file_error').show();
+               this.value = "";
+            }else{
+                $('#file_error').hide();
+            };
+        };
+    });
+});
+</script>
+
+
+
+</div>
+
+<?php } ?>
